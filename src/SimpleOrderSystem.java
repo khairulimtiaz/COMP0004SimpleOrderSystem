@@ -6,6 +6,7 @@ public class SimpleOrderSystem
   public static final int ADD_ORDER = 2;
   public static final int ADD_PRODUCT = 3;
   public static final int LIST_CUSTOMERS = 4;
+  public static final int OVERALL_TOTAL = 5;
   public static final int QUIT = 10;
   private Input in = new Input();
   private ArrayList<Customer> customers;
@@ -38,6 +39,7 @@ public class SimpleOrderSystem
     System.out.println(ADD_ORDER + ". Add Order");
     System.out.println(ADD_PRODUCT + ". Add Product");
     System.out.println(LIST_CUSTOMERS + ". List Customers");
+    System.out.println(OVERALL_TOTAL + ". Overall Total");
     System.out.println();
     System.out.println(QUIT + ". Quit");
   }
@@ -58,11 +60,22 @@ public class SimpleOrderSystem
       case LIST_CUSTOMERS:
         listCustomers();
         break;
+      case OVERALL_TOTAL:
+        overallTotal();
+        break;
       default:
         System.out.println("Invalid option - try again");
     }
   }
+  private void overallTotal(){
+    int total = 0;
+    for (Customer customer:customers)
+    {
+      total += customer.getTotalForAllOrders();
+    }
 
+    System.out.println("Overall total is : " + total);
+  }
   private int getMenuInput()
   {
     System.out.print("Enter menu selection: ");
@@ -206,7 +219,7 @@ public class SimpleOrderSystem
     {
       if (product.getCode() == code)
       {
-        return false;
+        return false; ///why false?
       }
     }
     return true;
